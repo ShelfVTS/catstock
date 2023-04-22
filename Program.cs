@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
-public static class Program
+public static class garb
 {
     private static double slime1;
     private static double predictor;
@@ -23,30 +24,27 @@ public static class Program
 
     public static void Main()
     {
-
         Console.WriteLine("Enter stock from week  -" + i);
         slime1 = Convert.ToInt32(Console.ReadLine());
-        
+
         SNumbers.Add(slime1);
         min = SNumbers.Min();
         i++;
-        
+
         if (slime1 != 0)
         {
             Main();
-            
         }
         else
         {
             Timer t = new Timer(TimerCallback, null, 0, 1000);
             Console.ReadLine();
         }
-        
     }
 
-    private static void TimerCallback(Object o)
+    private static void TimerCallback(object o)
     {
-        if(min == 0)
+        if (min == 0)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("In TimerCallback: " + DateTime.Now);
@@ -56,12 +54,14 @@ public static class Program
 
     private static void Update()
     {
-        gloomper = (rnd.Next(-10, 10));
+        gloomper = rnd.Next(-10, 10);
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(gloomper);
+
         SNumbers.Add(gloomper);
-        spoomper = gloomper + (SNumbers[i - 1])/3;
+        spoomper = gloomper + SNumbers[i - 1] / 3;
         Console.ForegroundColor = ConsoleColor.DarkYellow;
+
         if (l && b)
         {
             Console.WriteLine(predictor);
@@ -69,11 +69,11 @@ public static class Program
             Console.WriteLine("negative " + SNumbersNeg.Average() + " || " + "positive " + SNumbersPos.Average());
         }
 
-        if (SNumbers[i] >= SNumbers[i-1])
+        if (SNumbers[i] >= SNumbers[i - 1])
         {
             predictor++;
-            changePos = (SNumbers[i] - SNumbers[i - 1]);
-            SNumbersPos.Add((int)changePos);
+            changePos = SNumbers[i] - SNumbers[i - 1];
+            SNumbersPos.Add(changePos);
             l = true;
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(i);
@@ -81,8 +81,8 @@ public static class Program
         if (SNumbers[i] < SNumbers[i - 1])
         {
             predictor--;
-            changeNeg = (SNumbers[i] - SNumbers[i - 1]);
-            SNumbersNeg.Add((int)changeNeg);
+            changeNeg = SNumbers[i] - SNumbers[i - 1];
+            SNumbersNeg.Add(changeNeg);
             b = true;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(i);
